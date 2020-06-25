@@ -1,3 +1,6 @@
+// Left off on Setting up the MongoDB Database
+// https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/mongoose
+
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -8,6 +11,14 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
+
+//Set up mongoose connection
+var mongoose = require('mongoose');
+require('dotenv').config();
+var mongoDB = process.env.DB_URI;
+mongoose.connect(mongoDB, { useNewUrlParser: true });
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
